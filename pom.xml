@@ -14,6 +14,8 @@
         <module>desenmall-member</module>
         <module>desenmall-coupon</module>
         <module>desenmall-ware</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
     </modules>
 
 </project>
