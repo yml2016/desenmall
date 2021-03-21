@@ -16,6 +16,7 @@
         <module>desenmall-ware</module>
         <module>renren-fast</module>
         <module>renren-generator</module>
+        <module>desenmall-common</module>
     </modules>
 
 </project>
