@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://47.115.19.227:3306/desenmall_wms?characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+
+logging:
+  level:
+    com.desen.desenmall: debug
+server:
+  port: 11000

@@ -5,6 +5,8 @@ import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +29,26 @@ import com.desen.common.utils.R;
  */
 @RestController
 @RequestMapping("product/category")
+@RefreshScope
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    /**
+     * 测试配置中心
+     */
+    @Value("${name}")
+    private String name;
+
+    @RequestMapping("/nacos")
+    public R config(){
+        if(name!=null){
+            return R.ok().put("name",name);
+        }
+        else {
+            return R.error("没有名字");
+        }
+    }
 
     /**
      * 列表

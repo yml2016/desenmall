@@ -10,3 +10,10 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+
+logging:
+  level:
+    com.desen.desenmall: debug
+server:
+  port: 10000
