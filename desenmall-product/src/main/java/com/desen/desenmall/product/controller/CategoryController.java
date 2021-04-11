@@ -1,6 +1,7 @@
 package com.desen.desenmall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -37,7 +38,7 @@ public class CategoryController {
     /**
      * 测试配置中心
      */
-    @Value("${name}")
+    /*@Value("${name}")
     private String name;
 
     @RequestMapping("/nacos")
@@ -48,8 +49,17 @@ public class CategoryController {
         else {
             return R.error("没有名字");
         }
-    }
+    }*/
 
+    /**
+     * 查出所有分类以及子分类，以树形结构组装起来
+     */
+    @RequestMapping("/list/tree")
+    public R list(){
+
+        List<CategoryEntity> entities = categoryService.listWithTree();
+        return R.ok().put("data", entities);
+    }
     /**
      * 列表
      */
