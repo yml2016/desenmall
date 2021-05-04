@@ -4,12 +4,6 @@ spring:
     password: 123456
     url: jdbc:mysql://47.115.19.227:3306/desenmall_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
-#  cloud:
-#    alicloud:
-#      access-key: LTAI5t99RuZJ7wXaQ1axZq8Q
-#      secret-key: 6lCHST0wWz3vZaiGcUG6SZxS1Ose3R
-#      oss:
-#        endpoint: oss-cn-shenzhen.aliyuncs.com
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
