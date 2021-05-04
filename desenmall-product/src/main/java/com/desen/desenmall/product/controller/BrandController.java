@@ -1,11 +1,22 @@
 package com.desen.desenmall.product.controller;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.desen.common.valid.AddGroup;
+import com.desen.common.valid.UpdateGroup;
+import com.desen.common.valid.UpdateStatusGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.BindResult;
+import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,9 +75,23 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@Valid @RequestBody BrandEntity brand){
-		brandService.save(brand);
+    public R save(@Validated({AddGroup.class}) @RequestBody BrandEntity brand /*,BindingResult bindingResult*/){
+        /*if(bindingResult.hasErrors()){
+            Map<String,String> resMap = new HashMap<>();
+            List<FieldError> allErrors = bindingResult.getFieldErrors();
+            allErrors.forEach(error->{
+                String name = error.getField();
+                String message = error.getDefaultMessage();
+                resMap.put(name,message);
+            });
+            return R.error(400,"请求参数不正确").put("data",resMap);
+        }
+        else {
+            brandService.save(brand);
+            return R.ok();
+        }*/
 
+        brandService.save(brand);
         return R.ok();
     }
 
@@ -75,8 +100,19 @@ public class BrandController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand){
 		brandService.updateById(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改状态
+     */
+    @RequestMapping("/update/status")
+    //@RequiresPermissions("product:brand:update")
+    public R updateStatus(@Validated({UpdateStatusGroup.class}) @RequestBody BrandEntity brand){
+        brandService.updateById(brand);
 
         return R.ok();
     }
