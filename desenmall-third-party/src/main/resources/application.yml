@@ -7,8 +7,8 @@ server:
 spring:
   cloud:
     alicloud:
-      access-key: LTAI5t99RuZJ7wXaQ1axZq8Q
-      secret-key: 6lCHST0wWz3vZaiGcUG6SZxS1Ose3R
+      access-key: LTAI5t99RuZJ71wXaQ1axZq8Q
+      secret-key: 6lCHST0wWz3vZaiGcU4G6SZxS1Ose3R
       oss:
         endpoint: oss-cn-shenzhen.aliyuncs.com
         bucket: desenmall-product
