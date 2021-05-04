@@ -18,6 +18,7 @@
         <module>renren-generator</module>
         <module>desenmall-common</module>
         <module>desenmall-gateway</module>
+        <module>desenmall-third-party</module>
     </modules>
 
 </project>

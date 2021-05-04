@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import com.desen.desenmall.product.service.BrandService;
 import com.desen.common.utils.PageUtils;
 import com.desen.common.utils.R;
 
+import javax.validation.Valid;
 
 
 /**
@@ -25,6 +28,7 @@ import com.desen.common.utils.R;
  * @email 240662308@qq.com
  * @date 2021-03-21 17:56:46
  */
+@Slf4j
 @RestController
 @RequestMapping("product/brand")
 public class BrandController {
@@ -37,6 +41,7 @@ public class BrandController {
     @RequestMapping("/list")
     //@RequiresPermissions("product:brand:list")
     public R list(@RequestParam Map<String, Object> params){
+        log.info("params:{}",params);
         PageUtils page = brandService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -59,7 +64,7 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public R save(@Valid @RequestBody BrandEntity brand){
 		brandService.save(brand);
 
         return R.ok();

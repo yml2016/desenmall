@@ -1,0 +1,14 @@
+logging:
+  level:
+    com.desen.desenmall: debug
+server:
+  port: 30000
+
+spring:
+  cloud:
+    alicloud:
+      access-key: LTAI5t99RuZJ7wXaQ1axZq8Q
+      secret-key: 6lCHST0wWz3vZaiGcUG6SZxS1Ose3R
+      oss:
+        endpoint: oss-cn-shenzhen.aliyuncs.com
+        bucket: desenmall-product
