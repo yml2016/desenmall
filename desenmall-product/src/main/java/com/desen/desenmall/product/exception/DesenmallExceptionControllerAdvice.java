@@ -39,6 +39,7 @@ public class DesenmallExceptionControllerAdvice {
 
     @ExceptionHandler(value = Throwable.class)
     public R handleValidException(Throwable throwable){
+        log.error("系统未知异常",throwable);
         return R.error(BizCode.UNKNOW_EXCEPTION.getCode(),BizCode.UNKNOW_EXCEPTION.getMsg());
     }
 }

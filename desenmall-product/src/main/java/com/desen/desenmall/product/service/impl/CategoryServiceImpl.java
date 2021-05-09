@@ -91,17 +91,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return parentPath.toArray(new Long[parentPath.size()]);
     }
 
-    /**
-     * 级联更新所有关联的数据
-     * @param category
-     */
-    @Transactional
-    @Override
-    public void updateCascade(CategoryEntity category) {
-        this.updateById(category);
-        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
-    }
-
     //225,25,2
     private List<Long> findParentPath(Long catelogId,List<Long> paths){
         //1、收集当前节点id
@@ -113,5 +102,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return paths;
 
     }
+
+    /**
+     * 级联更新所有关联的数据
+     * @param category
+     */
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
+    }
+
+
 
 }

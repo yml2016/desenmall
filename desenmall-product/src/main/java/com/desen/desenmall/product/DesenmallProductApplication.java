@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @MapperScan("com.desen.desenmall.product.dao")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages ={"com.desen"} )
 public class DesenmallProductApplication {
 
     public static void main(String[] args) {

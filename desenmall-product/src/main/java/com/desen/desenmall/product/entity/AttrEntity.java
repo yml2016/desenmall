@@ -1,5 +1,6 @@
 package com.desen.desenmall.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -44,6 +45,11 @@ public class AttrEntity implements Serializable {
 	 * 属性类型[0-销售属性，1-基本属性，2-既是销售属性又是基本属性]
 	 */
 	private Integer attrType;
+
+	/**
+	 * 属性值类型[0-单个值，1-多个值]
+	 */
+	private Integer valueType;
 	/**
 	 * 启用状态[0 - 禁用，1 - 启用]
 	 */
@@ -57,4 +63,6 @@ public class AttrEntity implements Serializable {
 	 */
 	private Integer showDesc;
 
+	/*@TableField(exist = false)
+	private Long attrGroupId;*/
 }
