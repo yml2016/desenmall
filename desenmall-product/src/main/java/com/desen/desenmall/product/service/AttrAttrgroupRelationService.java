@@ -3,7 +3,9 @@ package com.desen.desenmall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.desen.common.utils.PageUtils;
 import com.desen.desenmall.product.entity.AttrAttrgroupRelationEntity;
+import com.desen.desenmall.product.vo.AttrGroupVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,8 @@ import java.util.Map;
 public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRelationEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    void deleteRelations(AttrGroupVo[] attrGroupVos);
+    void addRelations(List<AttrGroupVo> attrGroupVos);
+
 }
 

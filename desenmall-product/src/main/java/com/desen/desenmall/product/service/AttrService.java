@@ -3,9 +3,11 @@ package com.desen.desenmall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.desen.common.utils.PageUtils;
 import com.desen.desenmall.product.entity.AttrEntity;
+import com.desen.desenmall.product.vo.AttrGroupVo;
 import com.desen.desenmall.product.vo.AttrRespVo;
 import com.desen.desenmall.product.vo.AttrVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,10 +23,15 @@ public interface AttrService extends IService<AttrEntity> {
 
     void saveAttr(AttrVo attr);
 
-    PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId);
+    PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId, String attrType);
 
     AttrRespVo getAttrInfo(Long attrId);
 
     void updateAttr(AttrVo attr);
+
+    List<AttrEntity> attrRelation(Long attrgroupId);
+
+    PageUtils noattrRelation(Long attrgroupId, Map<String, Object> params);
+
 }
 
