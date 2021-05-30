@@ -3,10 +3,12 @@ package com.desen.desenmall.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.desen.desenmall.product.entity.BrandEntity;
+import com.desen.desenmall.product.vo.BrandVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +43,21 @@ public class CategoryBrandRelationController {
         List<CategoryBrandRelationEntity> list = categoryBrandRelationService.list(wrapper);
 
         return R.ok().put("data", list);
+    }
+    /**
+     * 获取当前分类所关联的品牌
+     */
+    @GetMapping("/brands/list")
+    //@RequiresPermissions("product:categorybrandrelation:list")
+    public R brandsList(@RequestParam("catId") Long catId ){
+        List<BrandEntity> brandEntities = categoryBrandRelationService.getBrandsByCatId(catId);
+        List<BrandVo> brandVos = brandEntities.stream().map(brandEntity -> {
+            BrandVo brandVo = new BrandVo();
+            brandVo.setBrandId(brandEntity.getBrandId());
+            brandVo.setBrandName(brandEntity.getName());
+            return brandVo;
+        }).collect(Collectors.toList());
+        return R.ok().put("data", brandVos);
     }
     /**
      * 列表

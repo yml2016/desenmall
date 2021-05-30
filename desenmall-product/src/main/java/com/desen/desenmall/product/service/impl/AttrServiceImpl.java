@@ -176,7 +176,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
      * @return
      */
     @Override
-    public List<AttrEntity> attrRelation(Long attrgroupId) {
+    public List<AttrEntity> getRelationAttr(Long attrgroupId) {
         List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrgroupId));
         List<Long> attrIds = relationEntities.stream().map(entity -> {
             return entity.getAttrId();
@@ -196,7 +196,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
      * @return
      */
     @Override
-    public PageUtils noattrRelation(Long attrgroupId, Map<String, Object> params) {
+    public PageUtils getNoRelationAttr(Long attrgroupId, Map<String, Object> params) {
         //1.当前分组只能关联自己所属的分类里面的所有属性
         AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrgroupId);
         Long catelogId = attrGroupEntity.getCatelogId();

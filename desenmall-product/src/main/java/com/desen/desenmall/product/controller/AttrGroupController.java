@@ -10,6 +10,7 @@ import com.desen.desenmall.product.service.AttrAttrgroupRelationService;
 import com.desen.desenmall.product.service.AttrService;
 import com.desen.desenmall.product.service.CategoryService;
 import com.desen.desenmall.product.vo.AttrGroupVo;
+import com.desen.desenmall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,17 @@ public class AttrGroupController {
 
     @Autowired
     AttrAttrgroupRelationService relationService;
+
+
+    ///product/attrgroup/{catelogId}/withattr
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
+
+        //1、查出当前分类下的所有属性分组，
+        //2、查出每个属性分组的所有属性
+        List<AttrGroupWithAttrsVo> vos =  attrGroupService.getAttrGroupWithAttrsByCatelogId(catelogId);
+        return R.ok().put("data",vos);
+    }
 
     /**
      * 列表
@@ -105,7 +117,7 @@ public class AttrGroupController {
     @GetMapping("/{attrgroupId}/attr/relation")
     //@RequiresPermissions("product:attrgroup:list")
     public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId) {
-        List<AttrEntity> attrEntities = attrService.attrRelation(attrgroupId);
+        List<AttrEntity> attrEntities = attrService.getRelationAttr(attrgroupId);
         return R.ok().put("data", attrEntities);
     }
 
@@ -113,7 +125,7 @@ public class AttrGroupController {
     @GetMapping("/{attrgroupId}/noattr/relation")
     //@RequiresPermissions("product:attrgroup:list")
     public R noattrRelation(@PathVariable("attrgroupId") Long attrgroupId, @RequestParam Map<String, Object> params) {
-        PageUtils page  = attrService.noattrRelation(attrgroupId, params);
+        PageUtils page  = attrService.getNoRelationAttr(attrgroupId, params);
         return R.ok().put("page", page);
     }
 

@@ -1,6 +1,8 @@
 package com.desen.desenmall.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -26,4 +28,9 @@ public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueDao
         return new PageUtils(page);
     }
 
+
+    @Override
+    public void saveProductAttr(List<ProductAttrValueEntity> collect) {
+        this.saveBatch(collect);
+    }
 }
