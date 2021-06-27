@@ -1,0 +1,9 @@
+logging:
+  level:
+    com.desen.desenmall: debug
+server:
+  port: 12000
+
+
+
+

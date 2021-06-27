@@ -19,6 +19,7 @@
         <module>desenmall-common</module>
         <module>desenmall-gateway</module>
         <module>desenmall-third-party</module>
+        <module>desenmall-search</module>
     </modules>
 
 </project>

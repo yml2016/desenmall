@@ -12,7 +12,6 @@ import com.desen.desenmall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.desen.desenmall.product.entity.AttrEntity;
 import com.desen.desenmall.product.service.AttrService;
 import com.desen.common.utils.PageUtils;
 import com.desen.common.utils.R;
@@ -104,7 +103,7 @@ public class AttrController {
     @GetMapping("/base/listforspu/{spuId}")
     public R baseAttrlistforspu(@PathVariable("spuId") Long spuId){
 
-        List<ProductAttrValueEntity> entities = productAttrValueService.baseAttrlistforspu(spuId);
+        List<ProductAttrValueEntity> entities = productAttrValueService.baseAttrlistforSpu(spuId);
 
         return R.ok().put("data",entities);
     }
