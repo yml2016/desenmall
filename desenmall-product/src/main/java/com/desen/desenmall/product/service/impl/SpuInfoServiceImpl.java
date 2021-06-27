@@ -8,6 +8,7 @@ import com.desen.desenmall.product.feign.CouponFeignService;
 import com.desen.desenmall.product.service.*;
 import com.desen.desenmall.product.vo.*;
 import com.desen.desenmall.product.vo.publish.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 
+@Slf4j
 @Service("spuInfoService")
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> implements SpuInfoService {
 
@@ -198,6 +200,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     public PageUtils queryPageByCondition(Map<String, Object> params) {
 
         QueryWrapper<SpuInfoEntity> wrapper = new QueryWrapper<>();
+        log.debug("params参数为->{}",params);
 
         String key = (String) params.get("key");
         if(!StringUtils.isEmpty(key)){
