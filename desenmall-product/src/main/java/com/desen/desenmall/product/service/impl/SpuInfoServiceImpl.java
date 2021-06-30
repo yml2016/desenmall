@@ -289,7 +289,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             // 构造器受保护 所以写成内部类对象
             stockMap = hasStock.getData(new TypeReference<List<SkuHasStockVo>>(){})
                     .stream()
-                    .collect(Collectors.toMap(SkuHasStockVo::getSkuId, item -> item.getHasStock()));
+                    .collect(Collectors.toMap(SkuHasStockVo::getSkuId, SkuHasStockVo::getHasStock));
             log.warn("服务调用成功" + hasStock);
         } catch (Exception e) {
             log.error("库存服务调用失败: 原因{}",e);
