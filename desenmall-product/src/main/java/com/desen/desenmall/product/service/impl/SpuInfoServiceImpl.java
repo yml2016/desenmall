@@ -1,5 +1,6 @@
 package com.desen.desenmall.product.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.desen.common.constant.ProductConstant;
 import com.desen.common.to.SkuReductionTo;
@@ -327,6 +328,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }).collect(Collectors.toList());
 
         // 5.发给ES进行保存  desenmall-search
+        log.error("======================"+JSON.toJSONString(collect));
         R r = searchFeignService.productStatusUp(collect);
         if(r.getCode() == 0){
             // 远程调用成功

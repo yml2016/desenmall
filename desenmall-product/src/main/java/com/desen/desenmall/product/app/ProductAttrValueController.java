@@ -1,4 +1,4 @@
-package com.desen.desenmall.product.controller;
+package com.desen.desenmall.product.app;
 
 import java.util.Arrays;
 import java.util.Map;

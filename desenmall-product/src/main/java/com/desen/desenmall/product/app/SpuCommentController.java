@@ -1,4 +1,4 @@
-package com.desen.desenmall.product.controller;
+package com.desen.desenmall.product.app;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desen.desenmall.product.entity.SkuInfoEntity;
-import com.desen.desenmall.product.service.SkuInfoService;
+import com.desen.desenmall.product.entity.SpuCommentEntity;
+import com.desen.desenmall.product.service.SpuCommentService;
 import com.desen.common.utils.PageUtils;
 import com.desen.common.utils.R;
 
 
 
 /**
- * sku信息
+ * 商品评价
  *
  * @author yangminglin
  * @email 240662308@qq.com
  * @date 2021-03-21 17:56:46
  */
 @RestController
-@RequestMapping("product/skuinfo")
-public class SkuInfoController {
+@RequestMapping("product/spucomment")
+public class SpuCommentController {
     @Autowired
-    private SkuInfoService skuInfoService;
+    private SpuCommentService spuCommentService;
 
     /**
      * 列表
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("product:skuinfo:list")
+    //@RequiresPermissions("product:spucomment:list")
     public R list(@RequestParam Map<String, Object> params){
+        PageUtils page = spuCommentService.queryPage(params);
 
-        PageUtils page = skuInfoService.queryPageByCondition(params);
         return R.ok().put("page", page);
     }
 
@@ -46,21 +46,21 @@ public class SkuInfoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{skuId}")
-    //@RequiresPermissions("product:skuinfo:info")
-    public R info(@PathVariable("skuId") Long skuId){
-		SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+    @RequestMapping("/info/{id}")
+    //@RequiresPermissions("product:spucomment:info")
+    public R info(@PathVariable("id") Long id){
+		SpuCommentEntity spuComment = spuCommentService.getById(id);
 
-        return R.ok().put("skuInfo", skuInfo);
+        return R.ok().put("spuComment", spuComment);
     }
 
     /**
      * 保存
      */
     @RequestMapping("/save")
-    //@RequiresPermissions("product:skuinfo:save")
-    public R save(@RequestBody SkuInfoEntity skuInfo){
-		skuInfoService.save(skuInfo);
+    //@RequiresPermissions("product:spucomment:save")
+    public R save(@RequestBody SpuCommentEntity spuComment){
+		spuCommentService.save(spuComment);
 
         return R.ok();
     }
@@ -69,9 +69,9 @@ public class SkuInfoController {
      * 修改
      */
     @RequestMapping("/update")
-    //@RequiresPermissions("product:skuinfo:update")
-    public R update(@RequestBody SkuInfoEntity skuInfo){
-		skuInfoService.updateById(skuInfo);
+    //@RequiresPermissions("product:spucomment:update")
+    public R update(@RequestBody SpuCommentEntity spuComment){
+		spuCommentService.updateById(spuComment);
 
         return R.ok();
     }
@@ -80,9 +80,9 @@ public class SkuInfoController {
      * 删除
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions("product:skuinfo:delete")
-    public R delete(@RequestBody Long[] skuIds){
-		skuInfoService.removeByIds(Arrays.asList(skuIds));
+    //@RequiresPermissions("product:spucomment:delete")
+    public R delete(@RequestBody Long[] ids){
+		spuCommentService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

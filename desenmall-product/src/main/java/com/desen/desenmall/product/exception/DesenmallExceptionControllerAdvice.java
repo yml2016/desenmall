@@ -33,7 +33,7 @@ public class DesenmallExceptionControllerAdvice {
             String message = error.getDefaultMessage();
             errMap.put(name,message);
         });
-        return R.error(BizCode.VALID_ECCEPTION.getCode(),BizCode.VALID_ECCEPTION.getMsg())
+        return R.error(BizCode.VALID_EXCEPTION.getCode(),BizCode.VALID_EXCEPTION.getMsg())
                 .put("data",errMap);
     }
 

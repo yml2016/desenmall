@@ -1,4 +1,4 @@
-package com.desen.desenmall.product.controller;
+package com.desen.desenmall.product.app;
 
 import com.desen.common.utils.PageUtils;
 import com.desen.common.utils.R;
