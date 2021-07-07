@@ -4,13 +4,32 @@ spring:
     password: 123456
     url: jdbc:mysql://47.115.19.227:3306/desenmall_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
   thymeleaf:
     cache: false
     suffix: .html
     prefix: classpath:/templates/
+
+  redis:
+    host: 47.115.19.227
+    port: 6379
+    password: 123456
+    timeout: 20000
+# 设置缓存类型
+  cache:
+     type: redis
+#   设置存活时间
+     redis:
+       time-to-live: 3600000
+#      如果指定了前缀就用我们指定的 如果没有就用缓存的名字作为前缀
+#      key-prefix: CACHE_
+#      是否缓存空值
+       cache-null-values: true
+#    cache-names:
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
@@ -22,5 +41,6 @@ mybatis-plus:
 logging:
   level:
     com.desen.desenmall: debug
+
 server:
   port: 10000

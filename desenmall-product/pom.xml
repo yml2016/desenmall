@@ -48,9 +48,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
+        <!--starter-data-redis默认使用lettuce，可以排掉lettuce，采用jedis更稳定-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--redisson作为所有分布式锁，或分布式对象等功能的框架 -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+        <!--spring cache 用来加缓存 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
         <!--<dependency>-->
