@@ -18,7 +18,7 @@ spring:
     host: 47.115.19.227
     port: 6379
     password: 123456
-    timeout: 20000
+    timeout: 200000
 # 设置缓存类型
   cache:
      type: redis

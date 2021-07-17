@@ -1,10 +1,12 @@
 package com.desen.desenmall.search.constant;
 
 /**
- * <p>Title: EsConstant</p>
- * Description：
- * date：2021/6/8 21:19
- */
+ @Description
+ @see EsConstant
+ @author yangminglin
+ @date 2021/5/10
+ @version V01
+**/
 public class EsConstant {
 
     /**
@@ -15,5 +17,5 @@ public class EsConstant {
     /**
      * 分页的大小
      */
-    public static final int PRODUCT_PASIZE = 2;
+    public static final int PRODUCT_PAGESIZE = 2;
 }
