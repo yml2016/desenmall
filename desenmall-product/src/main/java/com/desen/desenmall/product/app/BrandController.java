@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -113,4 +114,14 @@ public class BrandController {
         return R.ok();
     }
 
+    /**
+     * 信息
+     */
+    @RequestMapping("/infos")
+    //@RequiresPermissions("product:brand:info")
+    public R info(@RequestParam("brandIds") List<Long> brandIds){
+        List<BrandEntity> brands = brandService.getBrandsByIds(brandIds);
+
+        return R.ok().put("brand", brands);
+    }
 }

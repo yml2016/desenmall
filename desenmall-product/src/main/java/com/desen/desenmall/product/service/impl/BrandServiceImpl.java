@@ -5,6 +5,8 @@ import com.desen.desenmall.product.service.CategoryBrandRelationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -51,6 +53,15 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
 
             //TODO 更新其他关联
         }
+    }
+
+
+    @Override
+    public List<BrandEntity> getBrandsByIds(List<Long> brandIds) {
+
+        List<BrandEntity> entityList = baseMapper.selectList(new QueryWrapper<BrandEntity>().in("brand_id", brandIds));
+
+        return entityList;
     }
 
 }

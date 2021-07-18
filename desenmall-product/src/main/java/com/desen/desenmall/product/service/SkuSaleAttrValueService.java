@@ -3,7 +3,9 @@ package com.desen.desenmall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.desen.common.utils.PageUtils;
 import com.desen.desenmall.product.entity.SkuSaleAttrValueEntity;
+import com.desen.desenmall.product.vo.ItemSaleAttrVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,7 @@ import java.util.Map;
 public interface SkuSaleAttrValueService extends IService<SkuSaleAttrValueEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<ItemSaleAttrVo> getSaleAttrsBuSpuId(Long spuId);
 }
 

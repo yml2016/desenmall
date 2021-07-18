@@ -9,6 +9,7 @@ import com.desen.desenmall.search.constant.EsConstant;
 import com.desen.desenmall.search.feign.ProductFeignService;
 import com.desen.desenmall.search.service.MallService;
 import com.desen.desenmall.search.vo.AttrResponseVo;
+import com.desen.desenmall.search.vo.BrandVo;
 import com.desen.desenmall.search.vo.SearchParam;
 import com.desen.desenmall.search.vo.SearchResult;
 import lombok.extern.slf4j.Slf4j;
@@ -284,7 +285,7 @@ public class MallServiceImpl implements MallService {
         result.setPageNavs(pageNavs);
 
         // 6.构建面包屑导航功能
-        /*if (searchParam.getAttrs() != null) {
+        if (searchParam.getAttrs() != null) {
             List<SearchResult.NavVo> navVos = searchParam.getAttrs().stream().map(attr -> {
                 SearchResult.NavVo navVo = new SearchResult.NavVo();
                 String[] s = attr.split("_");
@@ -293,7 +294,7 @@ public class MallServiceImpl implements MallService {
                 // 将已选择的请求参数添加进去 前端页面进行排除
                 result.getAttrIds().add(Long.parseLong(s[0]));
                 if (r.getCode() == 0) {
-                    AttrResponseVo data = r.getData(new TypeReference<AttrResponseVo>() {
+                    AttrResponseVo data = r.getData("attr", new TypeReference<AttrResponseVo>() {
                     });
                     navVo.setName(data.getAttrName());
                 } else {
@@ -302,34 +303,36 @@ public class MallServiceImpl implements MallService {
                 }
                 // 拿到所有查询条件 替换查询条件
                 String replace = replaceQueryString(searchParam, attr, "attrs");
-                navVo.setLink("http://search.glmall.com/list.html?" + replace);
+                navVo.setLink("http://search.desenmall.com/list.html?" + replace);
                 return navVo;
             }).collect(Collectors.toList());
             result.setNavs(navVos);
-        }*/
+        }
 
         // 品牌、分类
-        /*if (searchParam.getBrandId() != null && searchParam.getBrandId().size() > 0) {
+        if (!CollectionUtils.isEmpty(searchParam.getBrandId())) {
             List<SearchResult.NavVo> navs = result.getNavs();
             SearchResult.NavVo navVo = new SearchResult.NavVo();
             navVo.setName("品牌");
             // TODO 远程查询所有品牌
             R r = productFeignService.brandInfo(searchParam.getBrandId());
             if (r.getCode() == 0) {
-                List<SearchResult.BrandVo> brand = r.getData("data", new TypeReference<List<SearchResult.BrandVo>>() {
+                List<BrandVo> brand = r.getData("brand", new TypeReference<List<BrandVo>>() {
                 });
                 StringBuffer buffer = new StringBuffer();
                 // 替换所有品牌ID
                 String replace = "";
-                for (SearchResult.BrandVo brandVo : brand) {
-                    buffer.append(brandVo.getBrandName() + ";");
+                for (BrandVo brandVo : brand) {
+                    buffer.append(brandVo.getName() + ";");
                     replace = replaceQueryString(searchParam, brandVo.getBrandId() + "", "brandId");
                 }
                 navVo.setNavValue(buffer.toString());
-                navVo.setLink("http://search.glmall.com/list.html?" + replace);
+                navVo.setLink("http://search.desenmall.com/list.html?" + replace);
             }
             navs.add(navVo);
-        }*/
+        }
+        //todo 分类:不要导航取消
+
         return result;
     }
 

@@ -50,7 +50,7 @@ spring:
         - id: product_host_route
           uri: lb://desenmall-product
           predicates:
-            - Host=desenmall.com
+            - Host=desenmall.com,item.desenmall.com
 
         - id: search_host_route
           uri: lb://desenmall-search
