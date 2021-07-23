@@ -20,6 +20,7 @@
         <module>desenmall-gateway</module>
         <module>desenmall-third-party</module>
         <module>desenmall-search</module>
+        <module>desenmall-auth-server</module>
     </modules>
 
 </project>

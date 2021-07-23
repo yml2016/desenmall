@@ -57,7 +57,10 @@ spring:
           predicates:
             - Host=search.desenmall.com
 
-
+        - id: auth_host_route
+          uri: lb://desenmall-auth-server
+          predicates:
+            - Host=auth.desenmall.com
 
 logging:
   level:

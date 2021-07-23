@@ -20,11 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * <p>Title: ProductSaveServiceImpl</p>
- * Description：
- * date：2020/6/8 21:16
- */
+
 @Slf4j
 @Service
 public class ProductSaveServiceImpl implements ProductSaveService {

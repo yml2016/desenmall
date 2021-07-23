@@ -81,6 +81,13 @@
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>2.3.2.RELEASE</version>
         </dependency>-->
+
+        <!-- 自定义属性的提示工具 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>2.3.2.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

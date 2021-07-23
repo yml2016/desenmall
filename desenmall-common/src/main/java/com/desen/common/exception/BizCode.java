@@ -6,6 +6,7 @@ package com.desen.common.exception;
               错误码列表：
                         10：通用
                            001：请求参数不正确
+                           002：验证码获取频率太高
                         11：商品
                         12：订单
                         13：会员
@@ -32,7 +33,7 @@ public enum BizCode {
 
     NOT_STOCK_EXCEPTION(14000, "商品库存不足"),
 
-    PRODUCT_UP_EXCEPTION(11000,"商品上架异常");
+    PRODUCT_UP_EXCEPTION(11000,"商品上架异常"),
     ;
     private int code;
     private String msg;

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.desen.desenmall</groupId>
-    <artifactId>desenmall-product</artifactId>
+    <artifactId>desenmall-auth-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>desenmall-product</name>
-    <description>德胜商城-商品服务</description>
+    <name>desenmall-auth-server</name>
+    <description>德胜商城-认证中心(社交登录，单点登录等功能)</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
@@ -22,6 +22,12 @@
             <groupId>com.desen.desenmall</groupId>
             <artifactId>desenmall-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -49,6 +55,10 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
         <!--starter-data-redis默认使用lettuce，可以排掉lettuce，采用jedis更稳定-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,12 +87,6 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
-
-        <!--<dependency>-->
-            <!--<groupId>com.aliyun.oss</groupId>-->
-            <!--<artifactId>aliyun-sdk-oss</artifactId>-->
-            <!--<version>3.10.2</version>-->
-        <!--</dependency>-->
 
     </dependencies>
     <dependencyManagement>

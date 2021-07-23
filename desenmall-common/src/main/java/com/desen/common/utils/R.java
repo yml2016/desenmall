@@ -6,6 +6,7 @@ package com.desen.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.desen.common.exception.BizCode;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -38,6 +39,13 @@ public class R extends HashMap<String, Object> {
 		R r = new R();
 		r.put("code", code);
 		r.put("msg", msg);
+		return r;
+	}
+
+	public static R error(BizCode bizCode) {
+		R r = new R();
+		r.put("code", bizCode.getCode());
+		r.put("msg", bizCode.getMsg());
 		return r;
 	}
 
