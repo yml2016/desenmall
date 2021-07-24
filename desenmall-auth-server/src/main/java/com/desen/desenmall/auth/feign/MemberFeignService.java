@@ -20,6 +20,7 @@ public interface MemberFeignService {
 
     @PostMapping("/member/member/oauth2/login")
     R login(@RequestBody SocialUser socialUser);
+
     @PostMapping("/member/member/oauth2/git/login")
     R login(@RequestBody GitUser gitUser);
 }

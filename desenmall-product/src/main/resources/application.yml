@@ -19,6 +19,8 @@ spring:
     port: 6379
     password: 123456
     timeout: 200000
+  session:
+    store-type: redis
 # 设置缓存类型
   cache:
      type: redis

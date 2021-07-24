@@ -77,6 +77,11 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
+        <!--用spring session做分布式会话，替换了传统session-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
 
         <!--<dependency>-->
             <!--<groupId>com.aliyun.oss</groupId>-->

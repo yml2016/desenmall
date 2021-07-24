@@ -62,7 +62,7 @@ public class LoginController {
             MemberRsepVo rsepVo = r.getData("data", new TypeReference<MemberRsepVo>() {});
             log.debug("登录成功-->{}", rsepVo);
             session.setAttribute(AuthServerConstant.LOGIN_USER, rsepVo);
-            log.info("\n欢迎 [" + rsepVo.getUsername() + "] 登录");
+            log.info("欢迎 [" + rsepVo.getUsername() + "] 登录");
             return UrlConstant.REDIRECT_INDEX_URL;
         }else {
             HashMap<String, String> error = new HashMap<>();
@@ -88,9 +88,10 @@ public class LoginController {
             }
         }
         String code = UUID.randomUUID().toString().substring(0, 5);
-        //2.用于验证码的再校验，格式: sms:code:phone, code
+        //2.用于验证码的再校验，格式: sms:code:phone, code_timestamp
         ops.set(AuthServerConstant.SMS_CODE_CACHE_PREFIX + phone, code + "_" + System.currentTimeMillis(), 300, TimeUnit.SECONDS);
 
+        log.debug("验证码【{}】", code);
         try {
             thirdPartFeignService.sendCode(phone, code);
         } catch (Exception e) {

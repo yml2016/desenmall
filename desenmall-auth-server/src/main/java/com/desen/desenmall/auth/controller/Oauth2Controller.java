@@ -36,7 +36,7 @@ public class Oauth2Controller {
     @GetMapping("/logout")
     public String login(HttpSession session){
         if(session.getAttribute(AuthServerConstant.LOGIN_USER) != null){
-            log.info("\n[" + ((MemberRsepVo)session.getAttribute(AuthServerConstant.LOGIN_USER)).getUsername() + "] 已下线");
+            log.info("[" + ((MemberRsepVo)session.getAttribute(AuthServerConstant.LOGIN_USER)).getUsername() + "] 已下线");
         }
         session.invalidate();
         return UrlConstant.REDIRECT_LOGIN_URL;
@@ -76,7 +76,7 @@ public class Oauth2Controller {
             if(login.getCode() == 0){
                 MemberRsepVo rsepVo = login.getData("data" ,new TypeReference<MemberRsepVo>() {});
 
-                log.info("\n欢迎 [" + rsepVo.getUsername() + "] 使用社交账号登录");
+                log.info("欢迎 [" + rsepVo.getUsername() + "] 使用社交账号登录");
                 // 第一次使用session 命令浏览器保存这个用户信息 JESSIONSEID 每次只要访问这个网站就会带上这个cookie
                 // 在发卡的时候扩大session作用域 (指定域名为父域名)
                 // TODO 1.默认发的当前域的session (需要解决子域session共享问题)

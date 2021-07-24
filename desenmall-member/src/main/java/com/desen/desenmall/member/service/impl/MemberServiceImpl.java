@@ -11,6 +11,8 @@ import com.desen.desenmall.member.vo.GitUser;
 import com.desen.desenmall.member.vo.MemberLoginVo;
 import com.desen.desenmall.member.vo.SocialUser;
 import com.desen.desenmall.member.vo.UserRegisterVo;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -66,6 +68,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         entity.setMobile(userRegisterVo.getPhone());
         entity.setUsername(userRegisterVo.getUserName());
 
+        //String md5Hex = DigestUtils.md5Hex("123456");//MD5加密
+        //Md5Crypt.md5Crypt("123456".getBytes(),"$444");//盐值加密
         // 密码要加密存储
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         entity.setPassword(bCryptPasswordEncoder.encode(userRegisterVo.getPassword()));
