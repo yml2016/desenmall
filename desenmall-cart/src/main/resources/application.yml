@@ -1,0 +1,47 @@
+spring:
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+
+  redis:
+    host: 47.115.19.227
+    port: 6379
+    password: 123456
+    timeout: 200000
+  session:
+    store-type: redis
+  # 设置缓存类型
+  cache:
+     type: redis
+#   设置存活时间
+     redis:
+       time-to-live: 3600000
+#      如果指定了前缀就用我们指定的 如果没有就用缓存的名字作为前缀
+#      key-prefix: CACHE_
+#      是否缓存空值
+       cache-null-values: true
+#    cache-names:
+
+logging:
+  level:
+    com.desen.desenmall: debug
+
+server:
+  port: 14000
+# 后台session在redis的过期时间
+  servlet:
+    session:
+      timeout: 30m
+
+desenmall:
+  thread:
+    core-size: 20
+    max-size: 200
+    keep-alive-time: 10
+
