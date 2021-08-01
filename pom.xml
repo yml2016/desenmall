@@ -21,6 +21,7 @@
         <module>desenmall-third-party</module>
         <module>desenmall-search</module>
         <module>desenmall-auth-server</module>
+        <module>desenmall-cart</module>
     </modules>
 
 </project>
