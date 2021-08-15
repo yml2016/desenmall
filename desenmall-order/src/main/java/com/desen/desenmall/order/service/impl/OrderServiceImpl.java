@@ -204,14 +204,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         lockVo.setOrderSn(order.getOrder().getOrderSn());
         List<OrderItemVo> locks = order.getOrderItems().stream().map(item -> {
             OrderItemVo itemVo = new OrderItemVo();
-            // 锁定的skuId 这个skuId要锁定的数量
+            // 锁定的skuId， 这个skuId要锁定的数量
             itemVo.setSkuId(item.getSkuId());
             itemVo.setCount(item.getSkuQuantity());
             itemVo.setTitle(item.getSkuName());
             return itemVo;
         }).collect(Collectors.toList());
-
         lockVo.setLocks(locks);
+
         // 远程锁库存
         R r = wmsFeignService.orderLockStock(lockVo);
         if (r.getCode() == 0) {
@@ -283,8 +283,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             integration = integration.add(item.getIntegrationAmount());
             // 打折的金额
             promotion = promotion.add(item.getPromotionAmount());
-            BigDecimal realAmount = item.getRealAmount();
-            totalPrice = totalPrice.add(realAmount);
+            // 实际的金额
+            totalPrice = totalPrice.add(item.getRealAmount());
 
             // 购物获取的积分、成长值
             gift.add(new BigDecimal(item.getGiftIntegration().toString()));

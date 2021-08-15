@@ -161,7 +161,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         }).collect(Collectors.toList());
 
         for (SkuWareHasStock hasStock : collect) {
-            Boolean skuStocked = true;
+            Boolean skuStocked = false;
             Long skuId = hasStock.getSkuId();
             List<Long> wareIds = hasStock.getWareId();
             if(wareIds == null || wareIds.size() == 0){
@@ -185,12 +185,12 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
                     stockLockedTo.setDetailTo(detailTo);
 
                     rabbitTemplate.convertAndSend(eventExchange, routingKey ,stockLockedTo);
-                    skuStocked = false;
+                    skuStocked = true;
                     break;
                 }
                 // 当前仓库锁定失败 重试下一个仓库
             }
-            if(skuStocked){
+            if(!skuStocked){
                 // 当前商品在所有仓库都没锁柱
                 throw new NotStockException(skuId.toString());
             }

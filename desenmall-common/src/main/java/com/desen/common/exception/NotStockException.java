@@ -6,7 +6,7 @@ public class NotStockException extends RuntimeException{
 	private Long skuId;
 
 	public NotStockException(String msg) {
-		super(msg + "号商品没有足够的库存了");
+		super(msg);
 	}
 
 	public Long getSkuId() {

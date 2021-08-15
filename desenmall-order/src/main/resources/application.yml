@@ -76,9 +76,6 @@ desenmall:
     keep-alive-time: 10
 
 myRabbitmq:
-  queue: desenmall-queue
-  exchange: desenmall-exchange
-  routeKey: desenmall
   MQConfig:
     # 订单队列
     queues: order.release.order.queue

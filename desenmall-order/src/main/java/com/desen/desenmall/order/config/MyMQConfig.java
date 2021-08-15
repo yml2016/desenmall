@@ -11,10 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- * <p>Title: MyMQConfig</p>
- * Description：容器中的所有bean都会自动创建到RabbitMQ中 [RabbitMQ没有这个队列、交换机、绑定]
- * date：2020/7/3 17:03
+ * 容器中的所有bean都会自动创建到RabbitMQ中 [RabbitMQ没有这个队列、交换机、绑定]
  */
 @Configuration
 public class MyMQConfig {
