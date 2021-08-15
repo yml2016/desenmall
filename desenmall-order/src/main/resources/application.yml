@@ -5,7 +5,8 @@ spring:
     password: 123456
     url: jdbc:mysql://47.115.19.227:3306/desenmall_oms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+    hikari:
+      connection-timeout: 1000000
   # MQ
   rabbitmq:
     host: 47.115.19.227
@@ -73,3 +74,20 @@ desenmall:
     core-size: 20
     max-size: 200
     keep-alive-time: 10
+
+myRabbitmq:
+  queue: desenmall-queue
+  exchange: desenmall-exchange
+  routeKey: desenmall
+  MQConfig:
+    # 订单队列
+    queues: order.release.order.queue
+    delayQueue: order.delay.queue
+    eventExchange: order-event-exchange
+    routingKey: order.release.order
+    createOrder: order.create.order
+    # 订单自动过期时间 单位:(毫秒)
+    ttl: 900000
+    # 库存解锁队列
+    ReleaseOther: stock.release.stock.queue
+    ReleaseOtherKey: order.release.other

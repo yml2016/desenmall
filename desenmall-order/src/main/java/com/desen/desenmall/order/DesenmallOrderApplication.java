@@ -8,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +29,8 @@ import org.springframework.web.client.RestTemplate;
  *    @RabbitListener 和  @RabbitHandler 组合用来监听同一队列中的不同消息类型
  *
  */
+@EnableFeignClients
+@EnableRedisHttpSession
 @EnableRabbit
 @EnableDiscoveryClient
 @SpringBootApplication

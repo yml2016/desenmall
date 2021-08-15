@@ -26,7 +26,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
             return true;
         }
         else {
-            request.getSession().setAttribute("msg","请先进行登录");
+            request.getSession().setAttribute("msg", AuthServerConstant.NOT_LOGIN);
             response.sendRedirect("http://auth.desenmall.com/login.html");
             return false;
         }
@@ -34,7 +34,6 @@ public class LoginUserInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
         loginUser.remove();//用完移除，避免内存泄露
     }
 }

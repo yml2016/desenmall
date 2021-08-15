@@ -169,6 +169,7 @@ public class CartServiceImpl implements CartService {
 
         UserInfoTo userInfoTo = CartInterceptor.threadLocal.get();
         if (userInfoTo.getUserId() == null) {
+            //没有登录直接返回
             return null;
         } else {
             String cartKey = CART_PREFIX + userInfoTo.getUserId();
@@ -176,6 +177,7 @@ public class CartServiceImpl implements CartService {
             // 获取所有被选中的购物项
             List<CartItem> collect = cartItems.stream().filter(item -> item.getCheck()).map(item -> {
                 try {
+                    //价格不是当时加入购物车的价格，而是最新的价格（todo 批量调用）
                     R r = productFeignService.getPrice(item.getSkuId());
                     String price = (String) r.get("data");
                     item.setPrice(new BigDecimal(price));

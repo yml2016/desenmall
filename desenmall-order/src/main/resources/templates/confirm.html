@@ -451,7 +451,7 @@
 
 			</div>
 
-			<div class="yfze" th:each="addr : ${orderConfirmData.address}">
+			<div class="yfze" >
 				<p class="yfze_a"><span class="z">应付总额：</span><span class="hq">￥ <b id="payPrice">[[${#numbers.formatDecimal(orderConfirmData.getPayPrice(),1,2)}]]</b></span></p>
 				<p class="yfze_b">寄送至：<span id="recieveAddressEle"></span> 收货人： <span id="recieveEle"></span> </p>
 			</div>
@@ -700,13 +700,13 @@
             })
       
       function highlight() {
-			    // 默认颜色是灰色
-			    $(".addr-item p").css({"border":"2px solid gray"})
+		  // 默认颜色是灰色
+		  $(".addr-item p").css({"border":"2px solid gray"})
           $(".addr-item p[def='1']").css({"border":"2px solid red"})
       }
 
       $(".addr-item p").click(function () {
-          $("a.addr-item p").attr("def","0");
+          $(".addr-item p").attr("def","0");
           $(this).attr("def","1");
           highlight();
           // 选择发生了变化就要获取当前地址id

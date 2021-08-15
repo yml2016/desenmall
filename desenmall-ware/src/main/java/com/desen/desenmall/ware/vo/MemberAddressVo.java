@@ -1,12 +1,13 @@
-package com.desen.desenmall.order.vo;
+package com.desen.desenmall.ware.vo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 
 @Data
 public class MemberAddressVo {
 
-	//@TableId
+	@TableId
 	private Long id;
 	/**
 	 * member_id

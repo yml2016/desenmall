@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.desen.common.exception.BizCode;
+import com.desen.common.exception.NotStockException;
 import com.desen.common.to.SkuHasStockVo;
+import com.desen.desenmall.ware.vo.WareSkuLockVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +27,7 @@ import com.desen.common.utils.R;
  * @email 240662308@qq.com
  * @date 2021-04-11 11:45:32
  */
+@Slf4j
 @RestController
 @RequestMapping("ware/waresku")
 public class WareSkuController {
@@ -94,5 +99,16 @@ public class WareSkuController {
     public R getSkuHasStock(@RequestBody List<Long> SkuIds){
         List<SkuHasStockVo> vos = wareSkuService.getSkuHasStock(SkuIds);
         return R.ok().setData(vos);
+    }
+
+    @PostMapping("/lock/order")
+    public R orderLockStock(@RequestBody WareSkuLockVo vo){
+        try {
+            wareSkuService.orderLockStock(vo);
+            return R.ok();
+        } catch (NotStockException e) {
+            log.warn("\n" + e.getMessage());
+        }
+        return R.error(BizCode.NOT_STOCK_EXCEPTION);
     }
 }
