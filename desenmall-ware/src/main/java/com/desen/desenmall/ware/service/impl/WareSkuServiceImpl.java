@@ -147,13 +147,13 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         taskEntity.setOrderSn(vo.getOrderSn());
         orderTaskService.save(taskEntity);
         // [理论上]1. 按照下单的收获地址 找到一个就近仓库, 锁定库存
-        // [实际上]1. 找到每一个商品在那个一个仓库有库存
+        // [实际上]1. 找到每一个商品在那个一个仓库有库存。不存在跨仓库的情况
         List<OrderItemVo> locks = vo.getLocks();
         List<SkuWareHasStock> collect = locks.stream().map(item -> {
             SkuWareHasStock hasStock = new SkuWareHasStock();
             Long skuId = item.getSkuId();
             hasStock.setSkuId(skuId);
-            // 查询这两个商品在哪有库存
+            // 查询这两个商品在哪有库存,todo 可以查的时候就直接判断仓库有没有足够的库存
             List<Long> wareIds = wareSkuDao.listWareIdHasSkuStock(skuId);
             hasStock.setWareId(wareIds);
             hasStock.setNum(item.getCount());
@@ -170,7 +170,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             }
             // 如果每一个商品都锁定成功 将当前商品锁定了几件的工作单记录发送给MQ
             // 如果锁定失败 前面保存的工作单信息回滚了
-            for (Long wareId : wareIds) {
+            for (Long wareId : wareIds) { //todo 如果前面查的时候就直接判断仓库有没有足够的库存，这里就不需要循环
                 // 成功就返回 1 失败返回0
                 Long count = wareSkuDao.lockSkuStock(skuId, wareId, hasStock.getNum());
                 if(count == 1){
