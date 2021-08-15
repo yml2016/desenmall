@@ -31,9 +31,10 @@ public interface OrderService extends IService<OrderEntity> {
      */
     SubmitOrderResponseVo submitOrder(OrderSubmitVo submitVo);
 
-    //OrderEntity getOrderByOrderSn(String orderSn);
+    OrderEntity getOrderByOrderSn(String orderSn);
 
     void closeOrder(OrderEntity entity);
+
 
     /**
      * 获取当前订单的支付信息

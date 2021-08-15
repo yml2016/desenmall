@@ -4,6 +4,7 @@ package com.desen.desenmall.order.interceptor;
 import com.desen.common.constant.AuthServerConstant;
 import com.desen.common.vo.MemberRsepVo;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +19,13 @@ public class LoginUserInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        String uri = request.getRequestURI();
+        // 仓库服务调用的这个请求直接放行
+        boolean match = new AntPathMatcher().match("/order/order/status/**", uri);
+        if(match){
+            return true;
+        }
 
         HttpSession session = request.getSession();
         MemberRsepVo user = (MemberRsepVo) session.getAttribute(AuthServerConstant.LOGIN_USER);

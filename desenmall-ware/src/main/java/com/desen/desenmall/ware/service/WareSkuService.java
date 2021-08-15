@@ -2,6 +2,8 @@ package com.desen.desenmall.ware.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.desen.common.to.SkuHasStockVo;
+import com.desen.common.to.mq.OrderTo;
+import com.desen.common.to.mq.StockLockedTo;
 import com.desen.common.utils.PageUtils;
 import com.desen.desenmall.ware.entity.WareSkuEntity;
 import com.desen.desenmall.ware.vo.WareSkuLockVo;
@@ -24,5 +26,11 @@ public interface WareSkuService extends IService<WareSkuEntity> {
     List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds);
 
     Boolean orderLockStock(WareSkuLockVo vo);
+
+    void unlockStock(StockLockedTo to);
+    /**
+     * 由于订单超时而自动释放订单之后来解锁库存
+     */
+    void unlockStock(OrderTo to);
 }
 
