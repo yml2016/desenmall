@@ -33,6 +33,8 @@ public class StockReleaseListener {
 			// 执行成功的 回复 [仅回复自己的消息]
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		} catch (Exception e) {
+			//在极端情况下可能会死循环(拒绝->接收->异常->拒绝->接收->)，
+			//为避免这种情况最好是重试几次之后，记录数据库，ack掉该消息。
 			log.error("解锁库存异常", e);
 			channel.basicReject(message.getMessageProperties().getDeliveryTag(), true);
 		}
@@ -44,6 +46,8 @@ public class StockReleaseListener {
 	@RabbitHandler
 	public void handleOrderCloseRelease(OrderTo to, Message message, Channel channel) throws IOException {
 		try {
+			//是否是重新派发的消息(通过该属性也可以解决消息重复的问题，最好是把接口设计成幂等的)
+			//Boolean redelivered = message.getMessageProperties().getRedelivered();
 			wareSkuService.unlockStock(to);
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		} catch (Exception e) {

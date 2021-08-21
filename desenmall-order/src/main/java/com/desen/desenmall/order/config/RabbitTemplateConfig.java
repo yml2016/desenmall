@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+/**
+ * 1.做好消息确认机制（publisher，consumer【手动ack】）
+ * 2.每一个发送的消息都在数据库做好记录，定期将失败的消息再次发送。
+ */
 @Component
 public class RabbitTemplateConfig {
 
@@ -47,6 +51,7 @@ public class RabbitTemplateConfig {
              */
             @Override
             public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
+                //通过该方法，可以保证消息可靠抵到。如果失败，记录到数据库日志，再通过定时任务等方式处理。
                 System.out.println("setReturnCallback============="+"replyCode:"+replyCode+"replyText:"+replyText+"exchange:"+exchange+"routingKey:"+routingKey+"message::"+message);
             }
         });
