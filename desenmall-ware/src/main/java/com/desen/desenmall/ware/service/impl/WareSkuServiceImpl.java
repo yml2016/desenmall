@@ -273,7 +273,10 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         WareOrderTaskEntity taskEntity = orderTaskService.getOrderTaskByOrderSn(orderSn);
         Long taskEntityId = taskEntity.getId();
         // 按照工作单找到所有 没有解锁的库存 进行解锁 状态为1等于已锁定
-        List<WareOrderTaskDetailEntity> entities = orderTaskDetailService.list(new QueryWrapper<WareOrderTaskDetailEntity>().eq("task_id", taskEntityId).eq("lock_status", 1));
+        List<WareOrderTaskDetailEntity> entities = orderTaskDetailService
+                .list(new QueryWrapper<WareOrderTaskDetailEntity>()
+                .eq("task_id", taskEntityId)
+                .eq("lock_status", 1));
         for (WareOrderTaskDetailEntity entity : entities) {
             unLock(entity.getSkuId(), entity.getWareId(), entity.getSkuNum(), entity.getId());
         }
