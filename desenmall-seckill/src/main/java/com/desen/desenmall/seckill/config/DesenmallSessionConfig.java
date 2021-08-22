@@ -16,7 +16,7 @@ public class DesenmallSessionConfig {
 		DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
 		// 明确的指定Cookie的作用域
 		cookieSerializer.setDomainName("desenmall.com");
-		cookieSerializer.setCookieName("FIRESESSION");
+		cookieSerializer.setCookieName("DESENSESSION");
 		return cookieSerializer;
 	}
 
