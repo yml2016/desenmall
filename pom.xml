@@ -22,6 +22,7 @@
         <module>desenmall-search</module>
         <module>desenmall-auth-server</module>
         <module>desenmall-cart</module>
+        <module>desenmall-seckill</module>
     </modules>
 
 </project>

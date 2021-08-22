@@ -1,10 +1,13 @@
 package com.desen.desenmall.product.service.impl;
 
+import com.alibaba.fastjson.TypeReference;
 import com.desen.common.utils.R;
 import com.desen.desenmall.product.entity.SkuImagesEntity;
 import com.desen.desenmall.product.entity.SpuInfoDescEntity;
+import com.desen.desenmall.product.feign.SeckillFeignService;
 import com.desen.desenmall.product.service.*;
 import com.desen.desenmall.product.vo.ItemSaleAttrVo;
+import com.desen.desenmall.product.vo.SeckillInfoVo;
 import com.desen.desenmall.product.vo.SkuItemVo;
 import com.desen.desenmall.product.vo.SpuItemAttrGroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +46,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
 
-    /*@Autowired
-    private SeckillFeignService seckillFeignService;*/
+    @Autowired
+    private SeckillFeignService seckillFeignService;
 
     /**
      * 自定义线程串池
@@ -172,16 +175,16 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         }, executor);
 
         // 6.查询当前sku是否参与秒杀优惠
-        /*CompletableFuture<Void> secKillFuture = CompletableFuture.runAsync(() -> {
+        CompletableFuture<Void> secKillFuture = CompletableFuture.runAsync(() -> {
             R skuSeckillInfo = seckillFeignService.getSkuSeckillInfo(skuId);
             if (skuSeckillInfo.getCode() == 0) {
                 SeckillInfoVo seckillInfoVo = skuSeckillInfo.getData(new TypeReference<SeckillInfoVo>() {});
                 skuItemVo.setSeckillInfoVo(seckillInfoVo);
             }
-        }, executor);*/
+        }, executor);
 
         // 等待所有任务都完成再返回。infoFutrue不需要加，它是别人的前提
-        CompletableFuture.allOf(ImgageFuture,saleAttrFuture,descFuture,baseAttrFuture/*,secKillFuture*/).get();
+        CompletableFuture.allOf(ImgageFuture,saleAttrFuture,descFuture,baseAttrFuture,secKillFuture).get();
         return skuItemVo;
     }
 

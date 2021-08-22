@@ -1,6 +1,7 @@
 package com.desen.desenmall.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.desen.common.to.mq.SecKillOrderTo;
 import com.desen.common.utils.PageUtils;
 import com.desen.desenmall.order.entity.OrderEntity;
 import com.desen.desenmall.order.vo.*;
@@ -53,6 +54,10 @@ public interface OrderService extends IService<OrderEntity> {
      */
     String handlePayResult(PayAsyncVo vo);
 
-    //void createSecKillOrder(SecKillOrderTo secKillOrderTo);
+
+    /**
+     * 秒杀下单
+     */
+    void createSecKillOrder(SecKillOrderTo secKillOrderTo);
 }
 

@@ -518,8 +518,9 @@
 									<span>￥</span>
 									<span th:text="${#numbers.formatDecimal(item.info.price,3,2)}">4499.00</span>
 								</li>
-								<li>
-									预约享资格
+								<li style="color: red" th:if="${item.seckillInfoVo!=null}">
+									<span th:if="${#dates.createNow().getTime() < item.seckillInfoVo.startTime}">商品将会在 [[${#dates.format(new java.util.Date(item.seckillInfoVo.startTime),"yyyy-MM-dd HH:mm:ss")}]] 进行秒杀</span>
+									<span th:if="${#dates.createNow().getTime() >= item.seckillInfoVo.startTime && #dates.createNow().getTime() <= item.seckillInfoVo.endTime}">秒杀价： [[${#numbers.formatDecimal(item.seckillInfoVo.seckillPrice,1,2)}]]</span>
 								</li>
 								<li>
 									<a href="/static/item/">
@@ -638,7 +639,12 @@
 
 								</div>
 							</div>
-							<div class="box-btns-two">
+							<div class="box-btns-two" th:if="${item.seckillInfoVo != null && (#dates.createNow().getTime() >= item.seckillInfoVo.startTime && #dates.createNow().getTime() <= item.seckillInfoVo.endTime)}">
+								<a id="secKillA" th:attr="skuId=${item.info.skuId},sessionId=${item.seckillInfoVo.promotionSessionId},code=${item.seckillInfoVo.randomCode}">
+									立即抢购
+								</a>
+							</div>
+							<div class="box-btns-two" th:if="${item.seckillInfoVo == null || (#dates.createNow().getTime() < item.seckillInfoVo.startTime || #dates.createNow().getTime() > item.seckillInfoVo.endTime)}">
 								<a id="addToCartA" th:attr="skuId=${item.info.skuId}">
 									加入购物车
 								</a>
@@ -1320,7 +1326,7 @@
 			location.href = "http://cart.desenmall.com/addToCart?skuId=" + skuId + "&num=" + num;
 			return false;
 		})
-		/*$("#secKillA").click(function () {
+		$("#secKillA").click(function () {
 			var isLogin = [[${session.loginUser != null}]]
 			if(isLogin){
 				var killId = $(this).attr("sessionid") + "-" + $(this).attr("skuid");
@@ -1330,7 +1336,7 @@
 				layer.msg("请先登录!")
 			}
 			return false;
-		})*/
+		})
 	</script>
 
 </html>

@@ -1,4 +1,3 @@
-/*
 package com.desen.desenmall.order.listener;
 
 import com.desen.common.to.mq.SecKillOrderTo;
@@ -31,4 +30,3 @@ public class OrderSecKillListener {
 		}
 	}
 }
-*/

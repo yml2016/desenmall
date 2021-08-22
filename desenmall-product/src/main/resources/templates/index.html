@@ -524,6 +524,11 @@
       <div class="swiper-container swiper_section_second_list_left">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
+            <ul id="seckillSkuContent">
+
+            </ul>
+          </div>
+          <div class="swiper-slide">
             <ul>
               <li>
                 <img src="/static/index/img/section_second_list_img1.jpg" alt="">
@@ -615,6 +620,23 @@
       var keyword=$("#searchText").val()
       window.location.href="http://search.desenmall.com/list.html?keyword="+keyword;
   }
+
+  function to_href(skuId){
+    location.href = "http://item.desenmall.com/" + skuId + ".html";
+  }
+  $.get("http://seckill.desenmall.com/currentSeckillSkus",function (resp) {
+    if(resp.data.length > 0){
+      resp.data.forEach(function (item) {
+        $("<li onclick='to_href(" + item.skuId + ")'></li>")
+                .append($("<img style='width: 130px; height: 130px;' src='" + item.skuInfoVo.skuDefaultImg + "'/>"))
+                .append($("<p>" + item.skuInfoVo.skuTitle + "</p>"))
+                .append($("<span>￥" + item.seckillPrice + "</span>"))
+                .append($("<s>￥" + item.skuInfoVo.price + "</s>"))
+                .appendTo("#seckillSkuContent");
+      })
+    }
+  })
+
 
 </script>
 <script type="text/javascript" src="/static/index/js/text.js"></script>
