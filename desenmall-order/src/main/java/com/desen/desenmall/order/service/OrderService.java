@@ -39,14 +39,19 @@ public interface OrderService extends IService<OrderEntity> {
     /**
      * 获取当前订单的支付信息
      */
-    //PayVo getOrderPay(String orderSn);
+    PayVo getOrderPay(String orderSn);
 
-    //PageUtils queryPageWithItem(@Param("params") Map<String, Object> params);
+
+    /**
+     * 查询当前登录的用户的所有订单信息
+     */
+    PageUtils queryPageWithItem(@Param("params") Map<String, Object> params);
+
 
     /**
      * 处理支付宝的返回数据
      */
-    //String handlePayResult(PayAsyncVo vo);
+    String handlePayResult(PayAsyncVo vo);
 
     //void createSecKillOrder(SecKillOrderTo secKillOrderTo);
 }

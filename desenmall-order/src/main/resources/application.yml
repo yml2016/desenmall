@@ -27,7 +27,9 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
+  #vo中的日期格式转化
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
   thymeleaf:
     cache: false
     suffix: .html
@@ -88,3 +90,10 @@ myRabbitmq:
     # 库存解锁队列
     ReleaseOther: stock.release.stock.queue
     ReleaseOtherKey: order.release.other
+
+alipay:
+  app_id: 2021000118606206
+  # 支付宝异步回调通知 这个来感应订单是否完成
+  notify_url: http://sthwsr.natappfree.cc/payed/notify
+  return_url: http://member.desenmall.com/memberOrder.html
+  timeout: 15m

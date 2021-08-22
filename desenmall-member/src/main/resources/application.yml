@@ -6,6 +6,19 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-timeout: 1000000
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+
+  redis:
+    host: 47.115.19.227
+    port: 6379
+    password: 123456
+    timeout: 200000
+  session:
+    store-type: redis
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:

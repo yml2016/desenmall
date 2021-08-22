@@ -72,6 +72,11 @@ spring:
           predicates:
             - Host=order.desenmall.com
 
+        - id: member_host_route
+          uri: lb://desenmall-member
+          predicates:
+            - Host=member.desenmall.com
+
 
 logging:
   level:
