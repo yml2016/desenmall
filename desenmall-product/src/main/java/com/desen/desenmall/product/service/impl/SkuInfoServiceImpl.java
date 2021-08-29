@@ -11,6 +11,7 @@ import com.desen.desenmall.product.vo.SeckillInfoVo;
 import com.desen.desenmall.product.vo.SkuItemVo;
 import com.desen.desenmall.product.vo.SpuItemAttrGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -45,6 +46,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
+
 
     @Autowired
     private SeckillFeignService seckillFeignService;

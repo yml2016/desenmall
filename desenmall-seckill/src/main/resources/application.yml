@@ -15,11 +15,7 @@ spring:
     # 抵达队列，以异步发送优先回调returnCallback
     template:
       mandatory: true
-#  cloud:
-#    sentinel:
-#      transport:
-#        dashboard: localhost:8333
-#        port: 8719
+
   task:
     execution:
       pool:
@@ -54,7 +50,6 @@ server:
   servlet:
     session:
       timeout: 30m
-
 
 
 

@@ -12,6 +12,7 @@ package com.desen.common.exception;
                         13：会员
                         14：仓储
                         15：优惠
+                        16: 秒杀
                         ...
  @see BizCode
  @author yangminglin
@@ -34,6 +35,8 @@ public enum BizCode {
     NOT_STOCK_EXCEPTION(14000, "商品库存不足"),
 
     PRODUCT_UP_EXCEPTION(11000,"商品上架异常"),
+
+    SECKILL_SERVER_EXCEPTION(16000,"秒杀服务异常"),
     ;
     private int code;
     private String msg;

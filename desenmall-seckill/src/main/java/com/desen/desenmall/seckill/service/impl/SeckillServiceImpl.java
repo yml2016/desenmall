@@ -2,6 +2,7 @@ package com.desen.desenmall.seckill.service.impl;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -30,10 +31,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -77,13 +75,23 @@ public class SeckillServiceImpl implements SeckillService {
 		}
 	}
 
+	//流控降级处理方法，有函数签名和位置要求，非同类，需要用blockHandlerClass指定，并且是static方法
+	public List<SeckillSkuRedisTo> blockHandlerForCurrentSeckillSkus(BlockException ex) {
+		log.error("getCurrentSeckillSkus被限流了。。。",ex);
+		return new ArrayList<>();
+	}
+
+	// 定义一段受保护的资源
+	//blockHandler 函数会在原方法被限流/降级/系统保护的时候调用，而 fallback 函数会针对所有类型的异常。
+	@SentinelResource(value = "getCurrentSeckillSkusResource", blockHandler = "blockHandlerForCurrentSeckillSkus")
 	@Override
 	public List<SeckillSkuRedisTo> getCurrentSeckillSkus() {
 
 		// 1.确定当前时间属于那个秒杀场次
 		long time = new Date().getTime();
 		// 定义一段受保护的资源
-		//try (Entry entry = SphU.entry("seckillSkus")){
+		try (Entry entry = SphU.entry("seckillSkus")){
+
 			Set<String> keys = stringRedisTemplate.keys(SESSION_CACHE_PREFIX + "*");
 			for (String key : keys) {
 				// seckill:sessions:1593993600000_1593995400000
@@ -106,9 +114,9 @@ public class SeckillServiceImpl implements SeckillService {
 					break;
 				}
 			}
-		/*}catch (BlockException e){
+		}catch (BlockException e){
 			log.warn("资源被限流：" + e.getMessage());
-		}*/
+		}
 		return null;
 	}
 
@@ -136,6 +144,16 @@ public class SeckillServiceImpl implements SeckillService {
 		return null;
 	}
 
+	/**
+	 * todo 上架秒杀商品的时候，每一个数据都有过期时间
+	 * todo 上架秒杀商品的时候，应该锁定库存，秒杀结束时还有信号量则解锁回去
+	 * todo 秒杀后续的流程，简化了收货地址等信息
+	 *
+	 * @param killId
+	 * @param key
+	 * @param num
+	 * @return
+	 */
 	@Override
 	public String kill(String killId, String key, Integer num) {
 

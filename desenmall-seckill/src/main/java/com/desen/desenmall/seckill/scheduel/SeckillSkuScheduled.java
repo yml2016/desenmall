@@ -27,8 +27,8 @@ public class SeckillSkuScheduled {
 	 *  三秒执行一次：* /3 * * * * ?
 	 *  8小时执行一次：0 0 0-8 * * ?
 	 */
-	@Scheduled(cron = "*/5 * * * * ?")
-	//@Scheduled(cron = "0 0 0-8 * * ?")
+	//@Scheduled(cron = "*/5 * * * * ?")
+	@Scheduled(cron = "0 0 0-8 * * ?")
 	public void uploadSeckillSkuLatest3Day(){
 		log.info("上架秒杀商品的信息");
 		// 加上分布式锁,避免分布式环境下同时执行，

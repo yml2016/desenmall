@@ -15,7 +15,7 @@
     <description>德胜商城-订单服务</description>
     <properties>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -78,11 +78,16 @@
             <artifactId>redisson</artifactId>
             <version>3.12.0</version>
         </dependency>
-
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>5.2.8.RELEASE</version>
+        </dependency>
+
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
     <dependencyManagement>

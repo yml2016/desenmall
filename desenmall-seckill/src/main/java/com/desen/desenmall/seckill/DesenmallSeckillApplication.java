@@ -10,7 +10,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 @EnableFeignClients
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages ={"com.desen"}, exclude = DataSourceAutoConfiguration.class)
 public class DesenmallSeckillApplication {
 
 //	http://127.0.0.1:25000/currentSeckillSkus

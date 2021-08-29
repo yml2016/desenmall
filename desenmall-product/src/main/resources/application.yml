@@ -44,7 +44,8 @@ mybatis-plus:
 logging:
   level:
     com.desen.desenmall: debug
-
+    org.springframework.cloud.openfeign: debug
+    org.springframework.cloud.sleuth: debug
 server:
   port: 10000
 

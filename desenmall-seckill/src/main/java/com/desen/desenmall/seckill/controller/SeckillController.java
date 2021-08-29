@@ -10,9 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
 
+/**
+ * 1.默认所有URL都是被保护的资源，可以直接进行流量的规制限制
+ * 2.自定义流控响应
+ * 3.feign远程调用的熔断降级
+ * 4.自定义受保护的资源,try-catch、@SentinelResource(blockHandler = "blockHandlerForGetUser")
+ */
 
 @Controller
 public class SeckillController {
@@ -30,6 +35,11 @@ public class SeckillController {
 	@ResponseBody
 	@GetMapping("/sku/seckill/{skuId}")
 	public R getSkuSeckillInfo(@PathVariable("skuId") Long skuId){
+		/*try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
 		SeckillSkuRedisTo to = seckillService.getSkuSeckillInfo(skuId);
 		return R.ok().setData(to);
 	}
