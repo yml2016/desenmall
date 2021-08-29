@@ -1,0 +1,644 @@
+{
+          "attrs" : [
+            {
+              "attrId" : 3,
+              "attrName" : "入网型号",
+              "attrValue" : "A223"
+            },
+            {
+              "attrId" : 5,
+              "attrName" : "上市年份",
+              "attrValue" : "2020年;2021"
+            },
+            {
+              "attrId" : 18,
+              "attrName" : "生产日期",
+              "attrValue" : "2020;2021"
+            }
+          ],
+          "brandId" : 12,
+          "brandImg" : "https://desenmall-product.oss-cn-shenzhen.aliyuncs.com/2021-05-02/34e0e2e7-6a89-4472-89f8-5ea963926f0b_QQ截图20200524215953.png",
+          "brandName" : "华为",
+          "catalogId" : 225,
+          "catalogName" : "手机",
+          "hasStock" : true,
+          "hotScore" : 0,
+          "saleCount" : 0,
+          "skuId" : 1,
+          "skuImg" : "https://desenmall-product.oss-cn-shenzhen.aliyuncs.com/2021-05-30/b05028c0-c057-41b5-8a5b-650b683bc810_7ae0120ec27dc3a7.jpg",
+          "skuPrice" : 3999.0,
+          "skuTitle" : "小米1 红包 8+256 大标题",
+          "spuId" : 10
+        }
+
+================================================
+GET bank/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+
+
+GET bank/_search
+{
+  "query": {
+    "match": {
+      "firstname": "yang"
+    }
+  }
+}
+
+
+GET bank/_search
+{
+  "query": {
+    "multi_match": {
+      "query" : "988",
+      "fields" : ["account_number", "balance"]
+    }
+  }
+}
+
+GET /_cat/nodes
+GET /_cat/health
+GET /_cat/master
+GET /_cat/indices
+
+GET bank/customer/988
+{
+  "firstname":"yang"
+}
+
+POST _analyze
+{
+  "analyzer": "standard",
+  "text": "The 2 Brown-Foxes bone."
+}
+
+POST _analyze
+{
+  "analyzer": "standard",
+  "text": ["我是中国人"]
+}
+
+
+POST _analyze
+{
+  "analyzer": "ik_smart",
+  "text": "中国广东省深圳市南山区啊啊啊"
+}
+
+POST _analyze
+{
+  "analyzer": "ik_max_word",
+  "text": "中国广东省深圳市南山区啊啊啊"
+}
+
+
+
+GET users/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET bank/_search
+{"query":{"match":{"address":{"query":"mill","operator":"OR","prefix_length":0,"max_expansions":50,"fuzzy_transpositions":true,"lenient":false,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"boost":1.0}}},"aggregations":{"ageAgg":{"terms":{"field":"age","size":10,"min_doc_count":1,"shard_min_doc_count":0,"show_term_doc_count_error":false,"order":[{"_count":"desc"},{"_key":"asc"}]}},"balanceAvg":{"avg":{"field":"balance"}}}}
+
+
+
+PUT product
+{
+  "mappings": {
+    "properties": {
+      "skuId":{
+        "type": "long"
+      },
+      "spuId":{
+        "type": "keyword"
+      },
+      "skuTitle":{
+        "type": "text",
+        "analyzer": "ik_smart"
+      },
+      "skuPrice":{
+        "type": "keyword"
+      },
+      "skuImg":{
+        "type": "keyword"
+      },
+      "saleCount":{
+        "type": "long"
+      },
+      "hasStock":{
+        "type": "boolean"
+      },
+      "hotScore":{
+        "type": "long"
+      },
+      "brandId":{
+        "type": "long"
+      },
+      "catalogId":{
+        "type": "long"
+      },
+      "brandName":{
+        "type":"keyword"
+      },
+      "brandImg":{
+        "type": "keyword"
+      },
+      "catalogName":{
+        "type": "keyword"
+      },
+      "attrs":{
+        "type": "nested",
+        "properties": {
+          "attrId":{
+            "type":"long"
+          },
+          "attrName":{
+            "type":"keyword"
+          },
+          "attrValue":{
+            "type":"keyword"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+GET product/_search
+
+
+
+
+GET _cat/nodes
+GET /_cat/health
+GET /_cat/master
+
+GET _cat/indices
+
+GET bank/_doc/1
+
+PUT /bank/_bulk
+{"index":{"_id":"3"}}
+{"account_number":3,"balance":39226,"firstname":"Ambera","lastname":"Duke","age":33,"gender":"M","address":"880 Holmes Lane","employer":"Pyrami","email":"amberduke@pyrami.com","city":"Brogan","state":"IL"}
+
+
+GET bank/_doc/4
+
+
+POST bank/_doc/2?if_seq_no=5001&if_primary_term=1
+{
+   
+    "age" : 25
+   
+}
+
+POST bank/_doc/2/_update
+{
+   
+   "doc":{
+      "age" : 25
+   }
+   
+}
+
+POST bank/_doc/2
+{
+    "account_number" : 2,
+    "balance" : 28838,
+    "firstname" : "Roberta",
+    "lastname" : "Bender",
+    "age" : 24,
+    "gender" : "F",
+    "address" : "中国广东省深圳市南山区啊啊啊",
+    "employer" : "Chillium",
+    "email" : "robertabender@chillium.com",
+    "city" : "深圳市",
+    "state" : "LA"
+  
+}
+POST bank/_doc/3
+{
+    "account_number" : 3,
+    "balance" : 44947,
+    "firstname" : "Levine",
+    "lastname" : "Burks",
+    "age" : 26,
+    "gender" : "F",
+    "address" : "中国的市有南山区",
+    "employer" : "Amtap",
+    "email" : "levineburks@amtap.com",
+    "city" : "Cochranville",
+    "state" : "HI"
+  }
+
+POST bank/_doc/4
+{
+    "account_number" : 4,
+    "balance" : 27658,
+    "firstname" : "Rodriquez",
+    "lastname" : "Flores",
+    "age" : 31,
+    "gender" : "F",
+    "address" : "986 Wyckoff Avenue",
+    "employer" : "Tourmania",
+    "email" : "rodriquezflores@tourmania.com",
+    "city" : "深圳市",
+    "state" : "HI"
+  }
+
+GET bank/_search?q=*&sort=account_number:asc
+
+GET /bank/_search
+{
+  "query": { "match_all": {} },
+  "sort": [
+    { "account_number": "asc" },
+    { "balance":"desc"}
+  ]
+}
+
+
+GET bank/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "from": 0,
+  "size": 6,
+  "_source": [
+    "balance",
+    "account_number"
+  ],
+  "sort": [
+    {
+      "account_number": {
+        "order": "asc"
+      }
+    }
+  ]
+}
+
+GET bank/_mapping
+
+GET bank/_search
+{
+ "query": {
+   "term": {
+     "balance": {
+       "value": "41504"
+     }
+   }
+ }
+}
+
+GET bank/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "深圳市",
+      "fields": ["address","city"]
+    }
+  }
+}
+
+GET bank/_search
+{
+  "query": {
+    "range": {
+      "age": {
+        "gte": 10,
+        "lte": 20
+      }
+    }
+  }
+}
+
+GET bank/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "address": "南山区"
+          }
+        },
+        {
+          "range": {
+            "balance": {
+              "gte": 20000,
+              "lte": 30000
+            }
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "match": {
+            "address": "罗湖"
+          }
+        }
+      ],
+      "should": [
+        {
+          "match": {
+            "city": "深圳"
+          }
+        }
+      ],
+      "filter": {
+        "range": {
+          "balance": {
+            "gte": 20000,
+            "lte": 30000
+          }
+        }
+      }
+    }
+  }
+}
+
+GET bank/_search
+{
+  "query": {
+    "match": {
+      "city": "深圳"
+    }
+  },
+  "aggs": {
+    "agg_balance": {
+      "avg": {
+        "field": "balance"
+      }
+    },
+    "agg_age":{
+      "max": {
+        "field": "age"
+      }
+    },
+    "agg_addr":{
+      "terms": {
+        "field": "age"
+      },
+      "aggs": {
+        "agg_balance": {
+          "terms": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}
+
+GET bank/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "aggs": {
+    "agg_age": {
+      "terms": {
+        "field": "age",
+        "size": 100
+      },
+      "aggs": {
+        "agg_balance": {
+          "avg": {
+            "field": "balance"
+          }
+        },
+        "agg_gender": {
+          "terms": {
+            "field": "gender.keyword",
+            "size": 10
+          },
+          "aggs": {
+            "agg_gender_balance": {
+              "avg": {
+                "field": "balance"
+              }
+            }
+          }
+        }
+      
+      }
+    }
+  }
+  
+}
+
+GET /customs/_search
+
+POST /customs/_doc/1
+{
+  "name":"yym",
+  "age":18,
+  "gender":"F"
+}
+
+PUT customsss
+{
+  "mappings": {
+    "properties": {
+      "name":{
+        "type": "text"
+      },
+      "age":{
+        "type": "long"
+      },
+      "gender":{
+        "type": "keyword"
+      }
+    }
+  }
+  , "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1
+  }
+}
+
+
+GET customsss/_search
+
+PUT customss/_mapping
+{
+  "properties":{
+    "addrr":{
+      "type":"text",
+      "index":false
+    }
+  }
+}
+
+
+POST _reindex
+{
+  "source": {
+    "index": "customs"
+  },
+  "dest": {
+    "index": "customsss"
+  }
+}
+
+
+
+GET product/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "skuTitle": "小米"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "catalogId": "225"
+          }
+        },
+        {
+          "terms": {
+            "brandId": ["12","13"]
+          }
+        },
+        {
+          "term": {
+            "hasStock": true
+          }
+        },
+        {
+          "range": {
+            "skuPrice": {
+              "gte": 3000,
+              "lte": 5000
+            }
+          }
+        },
+        {
+          "nested": {
+            "path": "attrs",
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "attrs.attrId": "3"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "skuPrice": {
+        "order": "desc"
+      }
+    }
+  ],
+  "from": 0,
+  "size": 5,
+  "highlight": {
+    "fields": {"skuTitle":{}},
+    "pre_tags": "<b style='color:red'>",
+    "post_tags": "</b>"
+  },
+  "aggs": {
+    "brandAgg": {
+      "terms": {
+        "field": "brandId",
+        "size": 10
+      },
+      "aggs": {
+        "brandNameAgg": {
+          "terms": {
+            "field": "brandName",
+            "size": 10
+          }
+        },
+        "brandImgAgg":{
+          "terms": {
+            "field": "brandImg",
+            "size": 10
+          }
+        }
+      }
+    },
+    "catalogAgg":{
+      "terms": {
+        "field": "catalogId",
+        "size": 10
+      },
+      "aggs": {
+        "catalogNameAgg": {
+          "terms": {
+            "field": "catalogName",
+            "size": 10
+          }
+        }
+      }
+    },
+    "attrs":{
+      "nested": {
+        "path": "attrs"
+      },
+      "aggs": {
+        "attrIdAgg": {
+          "terms": {
+            "field": "attrs.attrId",
+            "size": 10
+          },
+          "aggs": {
+            "attrNameAgg": {
+              "terms": {
+                "field": "attrs.attrName",
+                "size": 10
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+使用官方安装脚本自动安装
+curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+
+启动docker
+systemctl start docker
+
+docker开机自动启动设置：
+systemctl enable docker.service
+
+docker容器自动启动设置：
+docker run --restart=always 或 docker update --restart=always CONTAINER_ID
+
+运行mysql：
+docker run -itd -p 3306:3306 --name mysql-3306 -e MYSQL_ROOT_PASSWORD=123456  --restart=always mysql:5.7
+
+docker run -itd -p 3307:3306 --name mysql-3307 -v /mydata/mysql/log:/var/log/mysql  -v /mydata/mysql/data:/var/lib/mysql -v /mydata/mysql/conf:/etc/mysql -e MYSQL_ROOT_PASSWORD=123456 --restart=always mysql:5.7
+
+运行redis：
+docker run -itd --name redis-6379 -p 6379:6379 --restart=always redis --requirepass “123456”
+
+进入docker容器：
+docker exec -it 243c32535da7 /bin/bash
+=======================================
+安装ES：
+
+mkdir -p /mydata/elasticsearch/config
+mkdir -p /mydata/elasticsearch/data
+echo "http.host: 0.0.0.0" >> /mydata/elasticsearch/config/elasticsearch.yml
+
+保证文件权限可读可写：
+chmod -R 777 /mydata/elasticsearch/
+
+
+docker run --name elasticsearch -p 9200:9200 -p 9300:9300 \
+-e "discovery.type=single-node" \
+-e ES_JAVA_OPTS="-Xms256m -Xmx512m" \
+-v /mydata/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+-v /mydata/elasticsearch/data:/usr/share/elasticsearch/data \
+-v /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+-d elasticsearch:7.4.2
+
+
+docker run --name kibana -e ELASTICSEARCH_HOSTS=http://1.116.147.135:9200 -p 5601:5601 -d kibana:7.4.2
+http://1.116.147.135/
+
+docker run --name kibana-5601 -e ELASTICSEARCH_HOSTS=http://172.17.0.6:9200 -p 5601:5601 -d kibana:7.4.2
+NODE_OPTIONS="${NODE_OPTIONS:=--max-old-space-size=256}"
+NODE_OPTIONS="$NODE_OPTIONS --max-old-space-size=256"
+
+
+==========================
+安装nginx:
+
+
+docker run  -p 80:80 --name nginx \
+-v /mydata/nginx/html:/usr/share/nginx/html \
+-v /mydata/nginx/logs:/var/log/nginx \
+-v /mydata/nginx/conf:/etc/nginx \
+-d nginx:1.10
+==========================================
+grant all privileges on *.* to 'mysql'@'%'identified by '123456' with grant option
+
+vi /mydata/mysql/conf/my.cnf
+[client]
+default-character-set=utf8
+
+[mysql]
+default-character-set=utf8
+
+[mysqld]
+init_connect='SET collation_connection=utf8_unicode_ci'
+init_connect='SET NAMES utf8'
+character-set-server=utf8
+collation-server=utf8_unicode_ci
+skip-character-set-client-handshake
+skip-name-resolve
+================================================
+安装RabbitMQ
+docker run  -d --name rabbitmq -p 5671:5671 -p 5672:5672 -p 4369:4369 -p 25672:25672 -p 15671:15671 -p 15672:15672 rabbitmq:management
+docker update rabbitmq --restart=always
+
+
+安装sentinel
+docker run -itd --name sentinel-8333 -p 8333:8333 --restart=always bladex/sentinel-dashboard:1.8.0 
+
+
+安装zipkin
+docker run -d -p 9411:9411 openzipkin/zipkin --restart=always
+
+docker run -d -p 9411:9411 --env STORAGE_TYPE=elasticsearch --env ES_HOSTS=1.116.147.135:9200 openzipkin/zipkin-dependencies
+
+
+
+安装jenkins
+docker pull jenkins/jenkins
+mkdir -p /var/jenkins_mount
+chmod 777 /var/jenkins_mount
+docker run -d -p 10240:8080 -p 10241:50000 -v /var/jenkins_mount:/var/jenkins_home -v /etc/localtime:/etc/localtime --name jenkins-10240 jenkins/jenkins
+修改镜像地址：
+vi  hudson.model.UpdateCenter.xml
+https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json
+
+docker容器日志：
+docker logs jenkins-10240
+密码所在：
+/var/jenkins_home/secrets/initialAdminPassword
+f5b477d144b74771bc371f3c8550e337
+地址：
+http://47.115.19.227:10240/
+
+
+
+
+
+
+
