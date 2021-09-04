@@ -157,7 +157,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     //缓存有结果就不会执行方法了，
     // key采用SpEL表达式
-    //自定义缓存配置 RedissonConfig
+    //自定义缓存配置 CacheConfig
     @Cacheable(value = {"category"}, key = "#root.method.name", sync = true)
     @Override
     public List<CategoryEntity> getLevel1Categorys() {

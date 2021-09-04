@@ -19,7 +19,7 @@ import java.util.Map;
  * 集中处理所有异常
  */
 @Slf4j
-@RestControllerAdvice(basePackages="com.desen.desenmall.product.controller")
+@RestControllerAdvice(basePackages="com.desen.desenmall.product.app")
 public class DesenmallExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

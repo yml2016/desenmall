@@ -24,12 +24,10 @@ import java.util.Map;
 import java.util.UUID;
 
 
-
 /**
- * <p>Title: IndexController</p>
- * Description：
- * date：2020/6/9 14:01
+ * redisson使用
  */
+
 @Controller
 public class IndexController {
 
@@ -155,7 +153,7 @@ public class IndexController {
     }
 
     /**
-     * 尝试获取车位
+     * 释放车位
      */
     @ResponseBody
     @GetMapping("/index/go/park")
