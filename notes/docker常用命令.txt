@@ -18,6 +18,15 @@ docker run -itd -p 3307:3306 --name mysql-3307 -v /mydata/mysql/log:/var/log/mys
 运行redis：
 docker run -itd --name redis-6379 -p 6379:6379 --restart=always redis --requirepass “123456”
 
+mkdir -p /mydata/redis/conf
+touch /mydata/redis/conf/redis.conf
+docker run --name redis-6380 -p 6380:6379 --restart=always \
+-v /mydata/redis/data:/data \
+-v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf \
+-d redis redis-server /etc/redis/redis.conf --requirepass "123456"
+
+docker exec -it 243c32535da7 redis-cli
+
 进入docker容器：
 docker exec -it 243c32535da7 /bin/bash
 =======================================
