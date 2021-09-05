@@ -171,19 +171,19 @@ public class SeckillServiceImpl implements SeckillService {
 			if(time >= redisTo.getStartTime() && time <= redisTo.getEndTime()){
 				// 1.校验随机码跟商品id是否匹配
 				String randomCode = redisTo.getRandomCode();
-				String skuId = redisTo.getPromotionSessionId() + "-" + redisTo.getSkuId();
+				String redisKillId = redisTo.getPromotionSessionId() + "-" + redisTo.getSkuId();
 				
-				if(randomCode.equals(key) && killId.equals(skuId)){
+				if(randomCode.equals(key) && killId.equals(redisKillId)){
 					// 2.说明数据合法
 					BigDecimal limit = redisTo.getSeckillLimit();
 					if(num <= limit.intValue()){
 						// 3.验证这个人是否已经购买过了
-						String redisKey = memberRsepVo.getId() + "-" + skuId;
+						String userKey = memberRsepVo.getId() + "-" + redisKillId;
 						// 让数据自动过期
 						long ttl = redisTo.getEndTime() - redisTo.getStartTime();
 
-						Boolean aBoolean = stringRedisTemplate.opsForValue().setIfAbsent(redisKey, num.toString(), ttl<0?0:ttl, TimeUnit.MILLISECONDS);
-						if(aBoolean){
+						Boolean canBuy = stringRedisTemplate.opsForValue().setIfAbsent(userKey, num.toString(), ttl<0?0:ttl, TimeUnit.MILLISECONDS);
+						if(canBuy){
 							// 占位成功 说明从来没买过
 							RSemaphore semaphore = redissonClient.getSemaphore(SKUSTOCK_SEMAPHONE + randomCode);
 							boolean acquire = semaphore.tryAcquire(num);
